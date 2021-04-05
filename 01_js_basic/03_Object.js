@@ -121,3 +121,19 @@ student.toString();
 
 delete(student.장래희망);
 student.toString();
+
+function Student(name, korean, math, english, science) {
+    this.name = name;
+    this.korean = korean;
+    this.math = math;
+    this.english = english;
+    this.science = science;
+
+    this.getSum = () => (this.korean +this.math +this.english +this.science);
+    this.getAvg = () => (this.getSum() / 4);
+    this.toString = () => console.log(this.name + ' :       ' + this.getSum() + ',    ' + this.getAvg());
+}
+
+var obj1 = new Student('홍길동', 85, 90, 95, 100);
+console.log('   이름        총점    평균');
+obj1.toString();
