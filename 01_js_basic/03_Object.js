@@ -118,3 +118,6 @@ student.toString  = function() {
     }
 }
 student.toString();
+
+delete(student.장래희망);
+student.toString();
