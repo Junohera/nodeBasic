@@ -137,3 +137,95 @@ function Student(name, korean, math, english, science) {
 var obj1 = new Student('홍길동', 85, 90, 95, 100);
 console.log('   이름        총점    평균');
 obj1.toString();
+
+/**
+ * prototype
+ * * 생성자 함수를 사용해 생성된 객체가 공통으로 가지는 공간
+ * * 자바스크립트의 모든 함수는 변수 prototype을 갖습니다
+ * * prototype은 객체
+ * * 모든 함수에 존재하는 프로토타입은 객체의 생성자로 사용할 때 용도가 확실해집니다
+ */
+
+function Student(name, korean, math, english, science) {
+    this.name = name;
+    this.korean = korean;
+    this.math = math;
+    this.english = english;
+    this.science = science;   
+}
+Student.prototype.getSum = function() {
+    return (this.korean +this.math +this.english +this.science);
+};
+Student.prototype.getAvg = function() {
+    return (this.getSum() / 4);
+};
+Student.prototype.toString = function() {
+    return console.log(this.name + ' :       ' + this.getSum() + ',    ' + this.getAvg());
+};
+
+std = new Student('홍길동', 88, 99, 77, 66);
+std.toString();
+
+/**
+ * instanceof
+ * * instance : 생성자 함수를 통해 만들어진 객체
+ * * 해당 객체가 어떠한 생성자 함수를 통해 생성됬는지를 확인할 때 사용하는 키워드
+ */
+function Student(name) {
+    this.name = name;
+}
+var std2 = new Student('홍길동');
+console.log(std2 instanceof Student);
+console.log(std2 instanceof Number);
+console.log('std2 =>', JSON.stringify(std2, undefined, 2));
+
+/**
+ * inheritance
+ */
+function Rectangle(w, h) {
+    this.width = w;
+    this.height = h;
+    this.getWidth = () => this.width;
+    this.getHeight = () => this.height;
+    this.setWidth = value => this.width = value;
+    this.setHeight = value => this.height = value;
+};
+Rectangle.prototype.getArea = function() {
+    return this.getWidth() * this.getHeight();
+} 
+
+var rectangle = new Rectangle(5, 7);
+rectangle.setWidth(8);
+console.log('AREA : ' + rectangle.getArea());
+
+function Square(length) {
+    this.base = Rectangle;
+    this.base(length, length);
+}
+// prototype도 복사
+Square.prototype = Rectangle.prototype;
+
+var rectangle = new Rectangle(5, 7);
+var square = new Square(5);
+
+console.log(rectangle.getArea());
+console.log(square.getArea());
+
+/**
+ * Object 객체
+ * * toString() 메서드
+ * * 객체를 문자열로 변환할 때 자동으로 호출
+ */
+var object = new Object();
+console.log(object);
+console.log(object.toString());
+// - toString() override
+var student = {
+    name: '홍길동',
+    grade: '고등학교 1학년',
+    toString: function() {
+        return this.name + " : " + this.grade;
+    }
+};
+console.log("---------");
+console.log(student);
