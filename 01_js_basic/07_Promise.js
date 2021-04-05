@@ -83,27 +83,60 @@ const condition = false;
 //         console.log('!!!!!!!!!!!!!!!!!!!!!!!! finally');
 //     });
 
-const printString = (string, callback) => {
-    var time = Math.floor(Math.random() * 10000) + 1;
-    setTimeout(() => {
-        console.log(string + " " + time);
-        callback();
-    }, time);
+// const printString = (string, callback) => {
+//     var time = Math.floor(Math.random() * 10000) + 1;
+//     setTimeout(() => {
+//         console.log(string + " " + time);
+//         callback();
+//     }, time);
+// }
+
+// const printAll = () => {
+//     return new Promise((resolve, reject) => {
+//         printString("A", () => {
+//             printString("B", () => {
+//                 printString("C", () => {
+//                     resolve("ABC complete");
+//                 })
+//             })
+//         });    
+//     });
+// };
+// printAll()
+//     .then(res => console.log(res))
+//     .finally(() => {
+//         console.log('finally');
+//     });
+let totalTime = 0;
+const printString = string => {
+    return new Promise((resolve, reject) => {
+        var k = Math.floor(Math.random() * 10000) + 1;
+        totalTime += k;
+        setTimeout(() => {
+            console.log(string + " " + k);
+            console.log('totalTime =>', JSON.stringify(totalTime, undefined, 2));
+            resolve();
+        }, k);
+    })
 }
 
-const printAll = () => {
-    return new Promise((resolve, reject) => {
-        printString("A", () => {
-            printString("B", () => {
-                printString("C", () => {
-                    resolve("ABC complete");
-                })
-            })
-        });    
+const printAll = () => printString("A").then(() => printString("B")).then(() => printString("C"));
+printAll();
+
+const pm = new Promise((resolve, reject) => {
+    resolve('first resolve');
+});
+
+pm
+    .then(msg => new Promise((resolve, reject) => {
+        console.log(msg);
+        resolve('second resolve');
+    }))
+    .then(msg => new Promise((resolve, reject) => {
+        console.log(msg);
+        console.log('third resolve');
+    }))
+    .then( msg => console.log(msg))
+    .catch(err => {
+        console.error('err =>', err);
     });
-};
-printAll()
-    .then(res => console.log(res))
-    .finally(() => {
-        console.log('finally');
-    })
