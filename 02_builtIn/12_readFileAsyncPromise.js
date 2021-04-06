@@ -14,6 +14,7 @@ const targetFiles = [
     './02_builtin/readme3.txt',
 ];
 
+// finally에서는 promise객체 반환이 안되서 then과 catch에서 둘다 다음 구간의 프로미스객체 반환했음.
 fs.readFile(targetFiles[0])
     .then(data => {console.log(data.toString());
         return fs.readFile(targetFiles[1]);
