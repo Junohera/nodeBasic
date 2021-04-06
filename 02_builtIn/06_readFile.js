@@ -9,6 +9,6 @@ fs.readFile('./02_builtin/readme.txt', (err, data) => {
         throw err;
     }
 
-    console.log(data);
-    console.log(data.toString());
+    console.log(data); // 16진수 출력
+    console.log(data.toString()); // 문자열 출력
 });
