@@ -37,3 +37,22 @@ console.log('-----------------------------------------------------------');
 // 파일의 경로가 절대경로인지 상대경로인지 true false 반환
 console.log('path.isAbsolute("C:\\"): ', path.isAbsolute("C:\\"));
 console.log('path.isAbsolute("./home"): ', path.isAbsolute("./home"));
+
+// 인수로 나오는 경로와 경로사이에 이동 경로를 표시합니다.
+console.log('path.relative(0):',
+path.relative('D:\\juno\\workspaces\\nodeBasic\\javascript_ex1.js', 'D:\\'))
+// path.relative(): ..\..\.. --> 3번 상위폴더 이동
+
+// 처음 경로부터 이후 나오는 경로로 이동한 폴더를 표시합니다
+console.log('path.join():',
+path.join(__dirname, '..', '/juno', '.', '/nodeBasic'));
+// 현재폴더에서 부모폴더로 이동, juno폴더로 이동, 현재폴더에서
+// nodeBasic 폴더 표시
+// 결과 : path.join(): d:\juno\workspaces\nodeBasic\juno\nodeBasic
+// 이동 경로에 해당 폴더가 없어도 경로이름은 조합되어 결과로 나옵니다
+
+
+// ------------------------------------------------------------------------
+// resolve와 join은 비슷하지만 '/'표시를 절대경로냐 상대경로로 보느냐로 다름.
+// resolve는 절대경로로 보기때문에 최종 결과 경로가 D:
+console.log('path.resolve():', path.resolve(__dirname, '..', '/juno', '.', '/nodeBasic'));
