@@ -9,23 +9,25 @@ console.time('시간측정');
 
 const targetFiles = [
     './02_builtin/readme1.txt',
+    // './02_builtin/readme1.txt2',
     './02_builtin/readme2.txt',
     './02_builtin/readme3.txt',
 ];
 
 fs.readFile(targetFiles[0])
-    .then(data => {
-        console.log(data.toString());
+    .then(data => {console.log(data.toString());
         return fs.readFile(targetFiles[1]);
     })
-    .then(data => {
-        console.log(data.toString());
+    .catch(err => {console.log('1번 문제');
+        return fs.readFile(targetFiles[1]);
+    })
+    .then(data => {console.log(data.toString());
+        return fs.readFile(targetFiles[2]);
+    })
+    .catch(err => {console.log('2번 문제');
         return fs.readFile(targetFiles[2]);
     })
     .then(data => {
-        console.timeEnd('시간측정');
         console.log(data.toString());
-    })
-    .catch(err => {
-        console.error('err =>', err);
-    });
+        console.timeEnd('시간측정');
+    }).catch(err => {console.log('3번 문제')})
