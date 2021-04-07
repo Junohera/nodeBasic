@@ -3,6 +3,7 @@ const fs = require('fs').promises;
 
 http.createServer(async (req, res) => {
     try {
+        console.log(req.method, '=>', JSON.stringify(req.url, undefined, 2));
         if (req.method === 'GET') {
             if (req.url === '/') {
                 const data = await fs.readFile('./03_HTTP_Server/05_restFront.html');
