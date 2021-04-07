@@ -1,0 +1,66 @@
+# Express setting
+
+## package.json
+- java진영의 pom.xml이나 build.gradle처럼 javascript진영의 프로젝트 빌드 및 모듈 의존성 관련파일.
+```bash
+# main은 index.js가 아닌 app.js로
+npm init
+
+# install 후 package.json에 dependency 생성되었는지 확인 필요
+npm i express 
+```
+> 위의 명령어를 통해 자동생성
+
+## dependencies
+- package.json의 의존관리 키값
+- __^__ : 항상 이 버전을 의미하는 의미
+- package-lock.json: 고정된 모듈을 바라보는 나머지 의존된 모듈들의 모든 정보를 기록하기위한 json파일
+- 이유 : 불특정 모듈의 업데이트로부터 영향을 받지않기 위하여 현재 시점의 버전으로만 유지하기위함.
+```json
+"dependencies": {
+    "express": "^4.17.1"
+  }
+```
+
+## 개발을 위한 start script 수정
+```json
+{
+  "name": "npm01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "juno",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
+```
+> scripts.start의 값 node app으로 변경
+
+## launch.json
+- vscode의 기능을 이용하기위한 설정
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\04_Express_Server\\npm01\\app.js"
+        }
+    ]
+}
+```
+
+
