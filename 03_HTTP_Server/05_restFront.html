@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <title>Rest Server</title>
     <link rel="stylesheet" href="03_HTTP_Server/05_restFront.css">
+    <style>
+        button {
+            background: navy;
+        }
+    </style>
 </head>
 <body>
     <div class="login">
@@ -11,12 +16,12 @@
             <a href="/">Home</a><br>
             <a href="/about">about</a><br>
         </nav>
-            <form action="" id="form">
-                <input type="text" id="username" style="color:">
-                <input type="submit" value="post">
-            </form>
-        </div>
+        <form action="" id="form">
+            <input type="text" id="username" style="color:">
+            <input type="submit" value="post">
+        </form>
         <div id="list"></div>
+    </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <!--
             1. axios 라이브러리 : jquery와 같은 종류의 라이브러리 파일입니다. 
