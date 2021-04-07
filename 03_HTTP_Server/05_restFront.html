@@ -12,10 +12,21 @@
             <a href="/about">about</a><br>
         </nav>
             <form action="" id="form">
-                <input type="text" id="username">
+                <input type="text" id="username" style="color:">
                 <input type="submit" value="post">
             </form>
         </div>
+        <div id="list"></div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!--
+            1. axios 라이브러리 : jquery와 같은 종류의 라이브러리 파일입니다. 
+            2. Axios는 HTTP통신을 하는데 가장 많이 사용되어지는 라이브러리이며
+            3. 브라우저와 Node.js 플랫폼 모두 사용 가능합니다.
+            4. 현재는 클라이언트측에서 사용하기위해 src로 로딩한경우이고
+            5. 서버측에서 사용하려면 express구축시 설치명령으로 설치 후 사용 가능합니다.
+            6. JSON 데이터 자동변환 기능이 있고, get, post, put, delete 등을 구분하여 request요청이 가능합니다.
+        -->
+        <script src="03_HTTP_Server/05_restFront.js"></script>
     </div>
 </body>
 </html>

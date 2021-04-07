@@ -1,6 +1,8 @@
 const http = require('http');
 const fs = require('fs').promises;
 
+const users = {};
+
 http.createServer(async (req, res) => {
     try {
         console.log(req.method, '=>', JSON.stringify(req.url, undefined, 2));
@@ -24,7 +26,25 @@ http.createServer(async (req, res) => {
                // 주소에 해당하는 route를 못 찾았다는 404 Not Found Error 발생
             }
         }
-        else if (req.method === 'POST') {}
+        else if (req.method === 'POST') {
+            if (url.url === '/user') {
+                let body = '';
+                // 요청의 body를 stream형식으로 받음
+                req.on('data', (data) => {
+                    body += data;                    
+                });
+
+                // 요청의 body를 다 받은 후 실행됨
+                return req.on('end', () => {
+                    console.log('POST 본문(Body): ', body);
+                    const { name } = JSON.parse(body); // 전달된 데이터를 name변수에
+                    const id = Date.now(); // id 변수에 날짜를 
+                    users[id] = name; // id가 키값, name이 value로 객체에 저장
+                    res.writeHead(201, { 'Content-Type': 'text/plain; charset=utf-8'});
+                    res.end('ok');
+                });
+            }
+        }
         else if (req.method === 'PUT') {}
         else if (req.method === 'DELETE') {}
         else {console.log('req.method =>', JSON.stringify(req.method, undefined, 2));}
