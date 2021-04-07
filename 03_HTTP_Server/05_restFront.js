@@ -14,13 +14,13 @@ async function getUser() {
             const span = document.createElement('span');
             span.textContent = users[key];
 
-            // users 값들 하나하나 옆에 버튼 추가(수정, 삭제)
+            // 수정버튼
             const edit = document.createElement('button');
             edit.textContent = 'edit';
             edit.addEventListener('click', async () => {
                 const name = prompt('바꿀 이름을 입력하세요');
                 if (!name) {
-                    return alert("이름을 반드시 입력하셔야합니디ㅏ");
+                    return alert("이름을 반드시 입력하셔야합니다");
                 }
                 try {
                     await axios.put('/user/' + key, { name });
@@ -30,14 +30,19 @@ async function getUser() {
                 }
             });
 
+            // 삭제버튼
             const remove = document.createElement('button');
             remove.textContent = 'del';
             remove.addEventListener('click', async () => {
-                try {
-                    await axios.delete('/user/' + key);
-                    getUser();
-                } catch (err) {
-                    console.error('err =>', err);
+                if(confirm('삭제하시겠습니까?')) {
+                    try {
+                        await axios.delete('/user/' + key);
+                        getUser();
+                    } catch (err) {
+                        console.error('err =>', err);
+                    }
+                } else {
+                    // nothing...
                 }
             });
 

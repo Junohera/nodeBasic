@@ -33,7 +33,7 @@ http.createServer(async (req, res) => {
             if (req.url === '/user') {
                 let body = '';
                 // 요청의 body를 stream형식으로 받음
-                req.on('data', (data) => {
+                req.on('data', data => {
                     body += data;
                 });
 
@@ -48,8 +48,29 @@ http.createServer(async (req, res) => {
                 });
             }
         }
-        else if (req.method === 'PUT') {}
-        else if (req.method === 'DELETE') {}
+        else if (req.method === 'PUT') {
+            if (req.url.startsWith('/user/')) { // axios.put('/user/' + key, { name });
+                const key = req.url.split('/')[2];
+                let body = '';
+                req.on('data', data => {
+                    body += data;
+                });
+                return req.on('end', () => {
+                    console.log('PUT 본문(Body): ', body);
+                    users[key] = JSON.parse(body).name;
+                    res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+                    return res.end('ok');
+                });
+            }
+        }
+        else if (req.method === 'DELETE') {
+            if (req.url.startsWith('/user/')) { // axios.delete('/user/' + key);
+                const key = req.url.split('/')[2];
+                delete users[key];
+                res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+                return res.end('ok');
+            }
+        }
         else {console.log('req.method =>', JSON.stringify(req.method, undefined, 2));}
 
         res.writeHead(404);

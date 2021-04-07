@@ -167,3 +167,40 @@ a {
     /* color: blue; */
     text-decoration: none;
 }
+
+#list {
+    position: absolute;
+    right: 30px;
+    top: 10%;
+    width: 30%;
+    height: 80%;
+    overflow-y: scroll;
+    padding: 10px;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 1);
+}
+
+#list::-webkit-scrollbar {
+    width: 10px;
+}
+#list::-webkit-scrollbar-thumb {
+    background-color: pink;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+#list::-webkit-scrollbar-track {
+    background-color: navajowhite;
+    border-radius: 10px;
+    /* box-shadow: inset 0px 0px 5px black; */
+}
+#list > div {
+    position: relative;
+}
+#list > div >button {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+#list > div >button:nth-child(2) {
+    right: 30px;
+}
