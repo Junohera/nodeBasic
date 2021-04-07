@@ -19,7 +19,7 @@ http.createServer(async (req, res) => {
         console.log('req.url =>', JSON.stringify(req.url, undefined, 2));
     const cookies = req.headers.cookie ? parseCookies(req.headers.cookie) : {name:null};
         console.log('cookies =>', cookies);
-    console.log('======= REQUEST ======');
+    console.log('====================');
 
     // 주소가 login으로 시작
     if (req.url.startsWith('/login')) { // 처음 로그인시
@@ -29,7 +29,7 @@ http.createServer(async (req, res) => {
         
         // 쿼리스트링에서 실제 데이터만 분리
         const { name } = qs.parse(query);
-        console.log(name);
+        console.log('name =>', JSON.stringify(name, undefined, 2));
 
         // 쿠키 유효시간 설정
         const expires = new Date();
