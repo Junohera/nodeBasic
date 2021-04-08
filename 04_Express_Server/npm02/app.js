@@ -39,15 +39,12 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    // console.log("모든 요청에 실행하고싶어");
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/about', (req, res) => {
-    // console.log("모든 요청에 실행하고싶어");
     res.send('Hello, About');
 });
 app.get('/users', (req, res) => {
-    // console.log("모든 요청에 실행하고싶어");
     res.send('<h2>Hello, Express Users</h2>');
 });
 
