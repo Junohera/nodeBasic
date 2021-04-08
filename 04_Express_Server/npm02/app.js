@@ -35,15 +35,21 @@ app.get('/users', (req, res) => {
 });
 
 // ! Wildcard character & Request keyword
-    // ! :?
-app.get('/category/:name', (req, res) => {
-    res.send(`<h2>Hello Wild Card Char ${req.params.name}</h2>`);
-});
 app.get('/category/Boots', (req, res) => {
     res.send('<h2>Hello Boots</h2>');
 });
 app.get('/category/Heel', (req, res) => {
     res.send('<h2>Hello Heel</h2>');
+});
+
+/**
+ * ! :?
+ * * wildcard를 사용한 라우터는 범위가 넓으므로 가능한 아래쪽에 위치시켜
+ * * 명확히 구분된 라우터들을 먼저실행하게한다.
+ * * 해당 라우터가 없을 때 실행되게 하는것이 효과적
+*/
+app.get('/category/:name', (req, res) => {
+    res.send(`<h2>Hello Wild Card Char ${req.params.name}</h2>`);
 });
 
 app.listen(app.get('port'), () => {
