@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+
+const morgan = require('morgan'); // 각각의 요청과 응답에 대한 필요정보를 보기위한 모듈
+const cookieParser = require('cookie-parser'); // 쿠키 사용을 간결히 사용하기위함
+const session = require('express-session'); // 세션 사용을 간결히 사용하기위함
 
 const app = express();
 
