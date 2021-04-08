@@ -16,8 +16,9 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 
 // ! Router 실행전에 실행될 MiddleWare
-app.use((req, res) => {
+app.use((req, res, next) => {
     console.log("모든 요청에 실행하고싶어", req.url);
+    next();
 });
 
 app.get('/', (req, res) => {
