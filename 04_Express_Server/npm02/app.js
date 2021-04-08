@@ -43,6 +43,18 @@ app.get('/', (req, res) => {
 });
 app.get('/about', (req, res) => {
     res.send('Hello, About');
+    /**
+     * ! Middleware의 특성
+     * * 하나의 미들웨어에서 res.send() 또는 res.sendFile()등을 두번이상 사용 불가
+     * * res.json()도 마찬가지
+     * * res.send가 내부적으로 httpserver시 res.writeHeader() + res.end()가 포함되어 제공되는 것이므로 두번이상 사용시 에러발생
+     */
+
+    // res.json()
+    // res.writeHeader(200, {'Content-Type': 'application/json'});
+    // res.end(FJSON.stringify({hello: 'hong'}));
+    // 위 둘이 합쳐져서 res.json({hello:'hone'});으로 사용됩니다.
+    // 역시 다른 메서드들과 함께 두번 이상 사용하지않습니다.
 });
 app.get('/users', (req, res) => {
     res.send('<h2>Hello, Express Users</h2>');
