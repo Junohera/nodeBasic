@@ -19,11 +19,11 @@ app.set('port', process.env.PORT || 3000);
 app.use((req, res, next) => {
     console.log("모든 요청에 실행하고싶어", req.url);
     next();
+    // 모든 라우터에 next가 있지만, 사용하지않아서 생략된 상태이므로 필요시 꺼내서 사용 가능.
 });
 
 app.get('/', (req, res) => {
     // console.log("모든 요청에 실행하고싶어");
-    console.log(req.method);
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/about', (req, res) => {
