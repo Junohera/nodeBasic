@@ -68,4 +68,15 @@ npm i -D nodemon
 }
 ```
 
-
+## modules
+1. morgan
+1. cookie-parser
+1. express-session
+```bash
+npm i morgan cookie-parser express-session
+```
+```js
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+```
