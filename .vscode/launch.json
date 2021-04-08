@@ -11,7 +11,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "pwa-node"
+            "type": "pwa-node",
+            "outputCapture": "std"
         },
         {
             "name": "NPM02 nodemon",
@@ -31,5 +32,6 @@
             ],
             "program": "${workspaceFolder}\\04_Express_Server\\npm02\\app.js"
         }
-    ]
+    ],
+
 }
