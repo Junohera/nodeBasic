@@ -36,14 +36,17 @@ const session = require('express-session');
     });
 
     app.post('/login', (req, res) => {
+        console.log('req.body =>', JSON.stringify(req.body, undefined, 2));
         const name = req.body.name;
-
+        const expires = new Date();
+        expires.setMinutes(expires.getMinutes() + 1);
         res.cookie('name', encodeURIComponent(name), {
-            maxAge: 1000*60,
+            expires: expires,
             httpOnly: true,
             path: '/'
         });
-        res.redirect('/onlyMember');
+
+        res.redirect('/');
     });
 
     app.get('/onlyMember', (req, res) => {
