@@ -53,6 +53,11 @@ const session = require('express-session'); // 세션 사용을 간결히 사용
         });
         */
 
+        // ! 세션의 저장
+        req.session.id = 'hello';
+        req.session.data = 'junojuno';
+        // 다른 미들웨어에서 req.session.data로 접근가능
+        // (영구적 저장)
 
         res.sendFile(path.join(__dirname, 'index.html'));
         // res.send('<h1>Hello Express Server~!!</h1>');
