@@ -12,6 +12,7 @@ npm i express
 npm i -D nodemon
 ```
 > 위의 명령어를 통해 자동생성
+>> 간혹 install시 오류가 발생하는데, package.json의 script를 제거하고 받으면 해결되는 경우 있음.
 
 ## dependencies
 - package.json의 의존관리 키값

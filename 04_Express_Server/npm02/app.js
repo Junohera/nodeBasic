@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
 
 /**
@@ -53,6 +52,49 @@ app.get('/category/Heel', (req, res) => {
 app.get('/category/:name', (req, res) => {
     res.send(`<h2>Hello Wild Card Char ${req.params.name}</h2>`);
 });
+
+/**
+ * ! use
+ * * 특정 리퀘스트에서만 실행될 미들웨어
+ * * get과 post 등 모든 method에서 실행됨.
+ * * 단, next()로 인해 제어권이 아래로 이동하여, 해당 get이나 post등이 추가 실행될 수 있음.
+ */
+app.use('/about', (req, res, next) => {
+    console.log('about 요청에서만 실행하고싶어');
+    next();
+});
+
+/**
+ * ! chainning Middleware
+ * * middleware를 여러개 넣어 연달아 사용 가능
+ */
+app.use(
+    (req, res, next) => {
+        console.log('middleware 1');
+        next();
+    }, 
+    (req, res, next) => {
+        console.log('middleware 2');
+        next();
+    },
+    (req, res, next) => {
+        console.log('middleware 3');
+        next();
+    }
+);
+
+/**
+ * ! * 
+ * * 모든 요청을 처리할수 있으므로 예상하지못한 경로들까지 처리가능
+ * * => 404 에러방지를 위한 라우터
+ */
+app.get('*', (req, res) => {
+    res.send('Hello everybody');
+});
+
+
+
+
 
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), 'is running ... ');
