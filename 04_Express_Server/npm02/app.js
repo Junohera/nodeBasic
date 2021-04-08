@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
     // ! 에러발생 1
     try {
-        console.log(정의안된 변수사용);
+        // console.log(정의안된 변수사용);
     } catch (error) {
         next(error); // 에러처리 미들웨어로 이동하라는 next
         // next에 error가 인수로 들어가면 에러처리 라우터로 이동합니다.
