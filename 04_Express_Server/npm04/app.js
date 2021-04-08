@@ -57,10 +57,23 @@ const session = require('express-session');
 
         if (name) {
             name = decodeURIComponent(name);
-            res.send(`<h1>onlyMember welcome :  ${name}</h1>`);
+            res.send(`
+                <h1>onlyMember welcome :  ${name}</h1>
+                <br>
+                <a href="/logout">logout</a>
+            `);
         } else {
             throw new Error('로그인 되지않은 유저... main!!!');
         }
+    });
+
+    app.get('/logout', (req, res) => {
+        res.clearCookie('name');
+        res.redirect('/');
+    })
+
+    app.get('*', (req, res) => {
+        throw new Error('no page');
     });
 // ! </playground>
 
