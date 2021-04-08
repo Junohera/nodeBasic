@@ -47,6 +47,7 @@ app.get('/category/Heel', (req, res) => {
  * * wildcard를 사용한 라우터는 범위가 넓으므로 가능한 아래쪽에 위치시켜
  * * 명확히 구분된 라우터들을 먼저실행하게한다.
  * * 해당 라우터가 없을 때 실행되게 하는것이 효과적
+ * 
  * ? pathVariable과 비슷
 */
 app.get('/category/:name', (req, res) => {
