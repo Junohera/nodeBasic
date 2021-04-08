@@ -35,16 +35,15 @@ app.get('/users', (req, res) => {
 });
 
 // ! Wildcard character & Request keyword
+    // ! :?
+app.get('/category/:name', (req, res) => {
+    res.send(`<h2>Hello Wild Card Char ${req.params.name}</h2>`);
+});
 app.get('/category/Boots', (req, res) => {
     res.send('<h2>Hello Boots</h2>');
 });
 app.get('/category/Heel', (req, res) => {
     res.send('<h2>Hello Heel</h2>');
-});
-
-    // ! :?
-app.get('/category/:name', (req, res) => {
-    res.send(`<h2>Hello ${req.params.name}</h2>`);
 });
 
 app.listen(app.get('port'), () => {
