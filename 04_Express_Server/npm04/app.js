@@ -13,13 +13,13 @@ const session = require('express-session');
 // ! <common-middleware-config>
     app.use(morgan('dev'));
     app.use(cookieParser());
-    app.use(express.json());
-    app.use(express.urlencoded({extended:true}));
     app.use(session({
         resave: false,
         saveUninitialized: false,
         secret: 'junojunojuno',
     }));
+    app.use(express.json());
+    app.use(express.urlencoded({extended:true}));
 // ! </common-middleware-config>
 
 // ! <playground>
@@ -38,10 +38,13 @@ const session = require('express-session');
     app.post('/login', (req, res) => {
         console.log('req.body =>', JSON.stringify(req.body, undefined, 2));
         const name = req.body.name;
-        const expires = new Date();
-        expires.setMinutes(expires.getMinutes() + 1);
+        
         res.cookie('name', encodeURIComponent(name), {
-            expires: expires,
+            expires: (()=> {
+                const expires = new Date();
+                expires.setMinutes(expires.getMinutes() + 1);
+                return expires;
+            })(),
             httpOnly: true,
             path: '/'
         });
