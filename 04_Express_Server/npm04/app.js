@@ -24,27 +24,34 @@ const session = require('express-session');
 
 // ! <playground>
     app.get('/', (req, res) => {
-        console.log(req.url);
-        res.sendFile(path.join(__dirname, 'index.html'));
+        // isLogin ? onlyMember : index.html
+        const isLogin = req.cookies.name || false;
+
+        if (isLogin) {
+            res.redirect('/onlyMember');
+        } else {
+            res.clearCookie('name');
+            res.sendFile(path.join(__dirname, 'index.html'));
+        }
     });
 
     app.post('/login', (req, res) => {
         const name = req.body.name;
 
         res.cookie('name', encodeURIComponent(name), {
-            maxAge: 60*60,
+            maxAge: 1000*60,
             httpOnly: true,
             path: '/'
         });
-        res.redirect('/welcome');
+        res.redirect('/onlyMember');
     });
 
-    app.get('/welcome', (req, res) => {
+    app.get('/onlyMember', (req, res) => {
         let name = req.cookies.name || null;
 
         if (name) {
             name = decodeURIComponent(name);
-            res.send(`<h1>welcome ${name}</h1>`);
+            res.send(`<h1>onlyMember welcome :  ${name}</h1>`);
         } else {
             throw new Error('로그인 되지않은 유저... main!!!');
         }
