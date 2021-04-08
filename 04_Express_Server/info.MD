@@ -7,7 +7,9 @@
 npm init
 
 # install 후 package.json에 dependency 생성되었는지 확인 필요
-npm i express 
+npm i express
+
+npm i -D nodemon
 ```
 > 위의 명령어를 통해 자동생성
 
@@ -30,7 +32,7 @@ npm i express
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app"
+    "start": "${command}"
   },
   "author": "juno",
   "license": "ISC",
@@ -39,6 +41,8 @@ npm i express
   }
 }
 ```
+> ${command} = node app || nodemon app
+>
 > scripts.start의 값 node app으로 변경
 
 ## launch.json
