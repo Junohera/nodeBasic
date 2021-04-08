@@ -17,7 +17,6 @@ app.set('port', process.env.PORT || 3000);
 
 // ! Router 실행전에 실행될 MiddleWare
 app.use((req, res, next) => {
-    console.log("모든 요청에 실행하고싶어", req.url);
     next();
     // 모든 라우터에 next가 있지만, 사용하지않아서 생략된 상태이므로 필요시 꺼내서 사용 가능.
 });
@@ -34,6 +33,15 @@ app.get('/users', (req, res) => {
     // console.log("모든 요청에 실행하고싶어");
     res.send('<h2>Hello, Express Users</h2>');
 });
+
+// ! Wildcard character & Request keyword
+app.get('/category/Boots', (req, res) => {
+    res.send('Hello Boots');
+});
+app.get('/category/Heel', (req, res) => {
+    res.send('Hello Heel');
+});
+
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), 'is running ... ');
 });
