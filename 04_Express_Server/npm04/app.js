@@ -24,9 +24,39 @@ const session = require('express-session');
 
 // ! <playground>
     app.get('/', (req, res) => {
+        console.log(req.url);
         res.sendFile(path.join(__dirname, 'index.html'));
     });
+
+    app.post('/login', (req, res) => {
+        const name = req.body.name;
+
+        res.cookie('name', encodeURIComponent(name), {
+            maxAge: 60*60,
+            httpOnly: true,
+            path: '/'
+        });
+        res.redirect('/welcome');
+    });
+
+    app.get('/welcome', (req, res) => {
+        let name = req.cookies.name || null;
+
+        if (name) {
+            name = decodeURIComponent(name);
+            res.send(`<h1>welcome ${name}</h1>`);
+        } else {
+            throw new Error('로그인 되지않은 유저... main!!!');
+        }
+    });
 // ! </playground>
+
+// ! <Advice>
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.redirect('/');
+});
+// ! </Advice>
 
 // ! <config>
 app.listen(app.get('port'), () => {

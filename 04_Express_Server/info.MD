@@ -73,7 +73,8 @@ npm i -D nodemon
 1. cookie-parser : 쿠키 사용을 간결히 사용하기위함
 1. express-session : 세션 사용을 간결히 사용하기위함
 ```bash
-npm i morgan cookie-parser express-session
+npm i express morgan cookie-parser express-session
+npm i -D nodemon
 ```
 ```js
 const morgan = require('morgan');

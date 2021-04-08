@@ -5,23 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "NPM03 nodemon",
+            "name": "Express nodemon",
             "processId": "${command:PickProcess}",
             "request": "attach",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "type": "pwa-node",
-            "outputCapture": "std"
-        },
-        {
-            "name": "NPM02 nodemon",
-            "processId": "${command:PickProcess}",
-            "request": "attach",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "pwa-node"
         },
         {
             "type": "pwa-node",
