@@ -8,7 +8,10 @@ app.set('port', process.env.PORT || 3000);
     const indexRouter = require('./routes');
     const userRouter = require('./routes/users');
 
+    // 현재 사용할 '/'와 indexRouter에 있는 '/'와 조합 -> '/'
     app.use('/', indexRouter);
+
+    // 현재 사용할 '/users'와 userRouter에 있는 '/'와 조합 -> '/users/'
     app.use('/users', userRouter);
 // ! </Router>
 
