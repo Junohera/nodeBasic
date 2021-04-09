@@ -25,7 +25,7 @@ nunjucks.configure('views', {
     watch: true,
 });
 app.get('/', (req, res) => {
-    res.send('test');
+    res.render('index', {title: 'Express'});
 });
 app.use((err, req, res, next) => {
     console.error('err =>', err);
