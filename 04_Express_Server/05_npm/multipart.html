@@ -66,14 +66,33 @@
         input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
 
     </style>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // 폼 태그에 submit 이벤트 발생시 실행하는 이벤트 리스너 설정
+        window.onload = () => {
+            document.getElementById('form').addEventListener('submit', e => {
+                e.preventDefault(); // 기존의 동작 제거
+                const formData = new FormData(); // 폼데이터 객체 생성
+                formData.append('image', e.target.image.files[0]); // image 데이터 append
+                formData.append('title', e.target.title.value); // title 데이터 append
+
+                // 완성된 폼객체를 post전송
+                axios.post('/upload', formData)
+                    .then(res => {
+                        console.log('res =>', JSON.stringify(res, undefined, 2));
+                        alert('0');
+                    });
+            })
+        };
+    </script>
 </head>
 <body>
     <div class="login">
         <h1>upload</h1>
-        <form id="form" action="/upload" method="POST" enctype="multipart/form-data">
+        <form id="form">
             <input type="file" name="image">
             <input type="text" name="title">
-            <button id="login" type="submit" class="btn btn-primary btn-block btn-large">post</button>
+            <button id="login" class="btn btn-primary btn-block btn-large">post</button>
         </form>
     </div>
 </body>
