@@ -27,20 +27,24 @@ const multer = require('multer');
         storage : multer.diskStorage({
             destination(req, file, done) {
                 done(null, 'uploads/'); // 폴더 설정
+                // 첫번째 인수 null은 현재파일(file)의 경로와 이름 그대로 사용(변경 및 추가 없음)
             },
             filename(req, file, done) {
                 const ext = path.extname(file.originalname); // 확장자 추출
                 // 파일이름 + 오늘 날짜(milliseconds) + 확장자
                 done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+                // abc.jpg -> abc12345678.jpg
+                // 업로드 파일명이 같은 경우, 처리할 객체가 없고, 위와 같은 방법으로 파일명의 충돌을 방지
             },
         }),
-    });
 
+        limits: {fileSize: 5 * 1024 * 1024}, // 업로드 파일 사이즈 제한
+    });
 // ! </init>
 
 // ! <playground>
     app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, 'index.html'));
+        res.sendFile(path.join(__dirname, 'multipart.html'));
     });
     app.get('*', (req, res) => {
         throw new Error('no page');
@@ -49,7 +53,7 @@ const multer = require('multer');
 // ! <Advice>
 app.use((err, req, res, next) => {
     console.error(err);
-    res.redirect('/');
+    res.status(404).send(err.message);
 });
 // ! </Advice>
 // ! <config>
