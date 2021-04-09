@@ -4,17 +4,14 @@ const morgan = require('morgan');
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+// ! <Router>
+    const indexRouter = require('./routes');
+    const userRouter = require('./routes/users');
+// ! </Router>
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
 app.get('*', (req, res) => {
     throw new Error('no page');
 });
-
 app.use((err, req, res, next) => {
     console.error(err);
     res.status(404).send(err.message);
