@@ -7,6 +7,9 @@ app.set('port', process.env.PORT || 3000);
 // ! <Router>
     const indexRouter = require('./routes');
     const userRouter = require('./routes/users');
+
+    app.use('/', indexRouter);
+    app.use('/users', userRouter);
 // ! </Router>
 
 app.get('*', (req, res) => {
