@@ -12,15 +12,6 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node",
-        },
-        {
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}\\04_Express_Server\\npm02\\app.js"
         }
     ],
 
