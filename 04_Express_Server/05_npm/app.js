@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const multer = require('multer');
+const fs = require('fs');
 // ! <config>
     const app = express();
     app.set('port', process.env.PORT || 3000);
@@ -12,14 +13,19 @@ const multer = require('multer');
 // ! </common-middleware-config>
 
 // ! <init>
-    // upload 폴더 확인, 만약 현재 위치에 해당 폴더가 없다면
-    // 에러발생 및 에러처리로 폴더를 새로 생성
-    try {
-        fs.readdirSync('uploads');
-    } catch (error) {
-        console.error('uploads 폴더가 없어 uploads폴더를 생성합니다.');
-        fs.mkdirSync('uploads');
-    }
+
+    // CORE: default foldering
+    (() => {
+        // upload 폴더 확인, 만약 현재 위치에 해당 폴더가 없다면
+        // 에러발생 및 에러처리로 폴더를 새로 생성
+        try {
+            fs.readdirSync('uploads');
+        } catch (error) {
+            console.error('uploads 폴더가 없어 uploads폴더를 생성합니다.');
+            fs.mkdirSync('uploads');
+        }
+    })();
+    
 
     // multer 객체를 생성하고 필요한 옵션을 설정합니다.
     const upload = multer({
