@@ -4,6 +4,13 @@ const morgan = require('morgan');
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
+
+// ! <Hidden>
+// 경로 숨기기
+    // localhost:3000/routes/ -> localhost:3000으로
+    // app.use('/', express.static(path.join(__dirname, 'routes')));
+// ! </Hidden>
+
 // ! <Router>
     const indexRouter = require('./routes');
     const userRouter = require('./routes/users');
