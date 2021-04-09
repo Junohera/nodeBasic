@@ -46,6 +46,18 @@ const multer = require('multer');
     app.get('/', (req, res) => {
         res.sendFile(path.join(__dirname, 'multipart.html'));
     });
+
+    // 'image'업로드에서 전송된 폼데이터 중 파일선택 태그의 이름
+    // ! <input type="file" name="image"/>
+    app.post(
+        '/upload',
+        upload.single('image'),
+        (req, res) => {
+            console.log(req.file);
+            res.send('ok');
+        },
+    );
+
     app.get('*', (req, res) => {
         throw new Error('no page');
     });
