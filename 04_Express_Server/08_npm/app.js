@@ -18,6 +18,12 @@ app.set('port', process.env.PORT || 3003);
 app.set('view engine', 'html');
 nunjucks.configure('views', {   express: app,   watch: true,   });
 
+// 숨김폴더 및 공용폴더 설정
+app.use(express.static(path.join(__dirname, 'public')));
+// 폼데이터 및 json 사용을 위한 설정
+app.use(express.join());
+app.use(express.urlencoded({extended: false}))
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/comments', commentsRouter);
