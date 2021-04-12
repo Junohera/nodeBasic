@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
 app.use('/', indexRouter);
-app.use('/member', memberRouter);
+app.use('/member', verifyToken, memberRouter);
 app.use('/board', verifyToken, boardRouter);
 
 sequelize.sync({ force:false })
