@@ -18,6 +18,10 @@ app.set('port', process.env.PORT || 3003);
 app.set('view engine', 'html');
 nunjucks.configure('views', {   express: app,   watch: true,   });
 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/comments', commentsRouter);
+
 // 데이터 베이스 연결
 // 모델 제작 후 데이터 베이스 연결시 해당 모델에 매핑되는 테이블이 없으면
 // 새로 테이블을 만들라는 옵션. 값이 true 이면 기존 테이블도 지우고
