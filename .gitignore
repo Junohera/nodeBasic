@@ -193,6 +193,7 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,vscode,node
 # .vscode/launch.json
+**/launch.json
 02_builtIn/writeme.txt
 vscode-profile-2021-04-08-13-40-17.cpuprofile
 **/uploads/

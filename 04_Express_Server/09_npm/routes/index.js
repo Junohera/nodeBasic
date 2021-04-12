@@ -2,17 +2,15 @@ const express = require('express');
 const Member = require('../models/member');
 const Board = require('../models/board');
 const { createToken } = require('../auth/createToken');
+const { hasVerifyToken } = require('../auth/verifyToken');
 
 const router = express.Router();
 
 router.get('/', async (req, res) =>{
-    try {
-        res.render('index', {
-            members: await Member.findAll(),
-        });
-    } catch (e) {
-        console.error(e);
-        next(e);
+    if (hasVerifyToken(req)) { // 토큰 유효시 로그인 생략
+        res.redirect('/board');
+    } else {
+        res.render('index');
     }
 });
 

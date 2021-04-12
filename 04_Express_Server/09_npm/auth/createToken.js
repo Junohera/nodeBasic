@@ -1,7 +1,7 @@
 const Member = require('../models/member');
 const jwt = require('jsonwebtoken');
 const YOUR_SECRET_KEY = process.env.SECRET_KEY || "test";
-exports.createToken = async function(req, res, next) {
+module.exports.createToken = async function(req, res, next) {
     try {
         console.log('req.body =>', JSON.stringify(req.body, undefined, 2));
         const member = await Member.findOne({
