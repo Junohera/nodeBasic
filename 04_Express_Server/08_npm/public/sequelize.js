@@ -19,15 +19,38 @@ async function getComment(id) {
             td = document.createElement('td');
             td.textContent = comment.comment;
             row.appendChild(td);
+
             // 수정버튼
             const edit = document.createElement('button');
             edit.textContent = '수정';
+            edit.addEventListener('click', async () => {
+                const newComment = prompt('바꿀 내용을 입력하세요');
+                if (!newComment) {
+                    return alert('바꿀 내용을 반드시 입력하세요');
+                }
+                try {
+                    await axios.patch(`/comments/${comment.id}`, {comment: newComment});
+                    getComment(id);
+                } catch (e) {
+                    console.error('e =>', e);
+                }
+            });
+
             // 삭제버튼
             const remove = document.createElement('button');
             remove.textContent = '삭제';
+            remove.addEventListener('click', async () => {
+                try {
+                    await asiox.delete(`/comments/${comment.id}`);
+                    getComment(id);
+                } catch (err) {
+                    console.error('err =>', err);
+                }
+            });
             td = document.createElement('td');
             td.appendChild(edit);
             row.append(td);
+
             td = document.createElement('td');
             td.appendChild(remove);
             row.append(td);
