@@ -38,8 +38,6 @@ module.exports.hasVerifyToken = req => {
         } else {
             return false;
         }
-
-        return decoded;
     } catch(e) {
         return false;
     }
