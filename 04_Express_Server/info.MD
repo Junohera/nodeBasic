@@ -130,5 +130,33 @@ const session = require('express-session');
     "dialect": "mysql"
   }
 }
+```
 
+### relation
+- 1 : N
+  - 1 -> N : hasMany
+  - N -> 1 : belongsTo
+- 1 : 1
+  - 1 -> 1 : hasOne
+- N : M
+   - N -> M : belongsToMany
+
+```js
+// ex) user와 comment
+
+// user : 1 -> hasMany
+const Sequelize = require('sequelize');
+module.exports = class User extends Sequelize.Model {
+    static associate(db){
+        db.User.hasMany( db.Comment, { foreignKey: 'commenter', sourceKey: 'id' } );
+    }
+};
+
+// comment : N -> belongsTo
+const Sequelize = require('sequelize');
+module.exports = class Comment extends Sequelize.Model {
+    static associate(db) {
+        db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' });
+    }
+};
 ```
