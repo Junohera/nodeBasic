@@ -1,9 +1,8 @@
 // 댓글 로딩
 async function getComment(id) {
     try {
-        const res = await axios.get(`/comments?${id}`);
+        const res = await axios.get(`/users/${id}/comments`);
         const comments = res.data;
-
         const tbody = document.querySelector('#comment-list tbody');
         tbody.innerHTML = '';
 
@@ -20,6 +19,18 @@ async function getComment(id) {
             td = document.createElement('td');
             td.textContent = comment.comment;
             row.appendChild(td);
+            // 수정버튼
+            const edit = document.createElement('button');
+            edit.textContent = '수정';
+            // 삭제버튼
+            const remove = document.createElement('button');
+            remove.textContent = '삭제';
+            td = document.createElement('td');
+            td.appendChild(edit);
+            row.append(td);
+            td = document.createElement('td');
+            td.appendChild(remove);
+            row.append(td);
 
             tbody.appendChild(row);
         })
@@ -108,7 +119,7 @@ document.getElementById('user-form').addEventListener(
 );
 
 // id가 comment-list인 폼의 submit이 실행될 때,
-document.getElementById('comment-list').addEventListener(
+document.getElementById('comment-form').addEventListener(
     'submit',
     async e => {
         e.preventDefault();
