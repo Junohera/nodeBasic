@@ -1,21 +1,29 @@
 const express = require('express');
 const path = require('path');
 const nunjucks = require('nunjucks');
+const cookieParser = require('cookie-parser');
 
 const { sequelize } = require('./models');
+
+const indexRouter = require('./routes');
+const memberRouter = require('./routes/member');
+const boardRouter = require('./routes/board');
+
+const { verifyToken } = require('./auth/verifyToken');
 
 const app = express();
 app.set('port', process.env.PORT || 3005);
 app.set('view engine', 'html');
 nunjucks.configure('views', {   express: app,   watch: true,   });
 
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
-app.use('/', require('./routes'));
-app.use('/member', require('./routes/member'));
-app.use('/board', require('./routes/board'));
+app.use('/', indexRouter);
+app.use('/member', memberRouter);
+app.use('/board', verifyToken, boardRouter);
 
 sequelize.sync({ force:false })
 .then(() => { console.log('::: DATABASE CONNECTION SUCCESS :::'); })
@@ -30,7 +38,8 @@ app.use((err, req, res, next) => {
     res.locals.message = err.message;
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
     res.status(err.status || 500);
-    res.render('error');
+    console.log('err =>', JSON.stringify(err, undefined, 2));
+    res.render('error', {err});
 });
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), 'IS RUNNING ###');
