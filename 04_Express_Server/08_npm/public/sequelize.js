@@ -1,6 +1,31 @@
 // 댓글 로딩
 async function getComment(id) {
-    
+    try {
+        const res = await axios.get(`/comments?${id}`);
+        const comments = res.data;
+
+        const tbody = document.querySelector('#comment-list tbody');
+        tbody.innerHTML = '';
+
+        comments.forEach(comment => {
+            const row = document.createElement('tr');
+            let td = null; 
+
+            td = document.createElement('td');
+            td.textContent = comment.id;
+            row.appendChild(td);
+            td = document.createElement('td');
+            td.textContent = comment.User.name;
+            row.appendChild(td);
+            td = document.createElement('td');
+            td.textContent = comment.comment;
+            row.appendChild(td);
+
+            tbody.appendChild(row);
+        })
+    } catch (e) {
+        console.error('e =>', e);
+    }
 }
 
 // 모든 사용자 조회 후 화면에 표시
@@ -80,4 +105,32 @@ document.getElementById('user-form').addEventListener(
         e.target.age.value = '';
         e.target.married.checked = false;
     }
+);
+
+// id가 comment-list인 폼의 submit이 실행될 때,
+document.getElementById('comment-list').addEventListener(
+    'submit',
+    async e => {
+        e.preventDefault();
+
+        const userid = e.target.userid.value;
+        const comment = e.target.comment.value;
+
+        if (!userid) {
+            return alert('아이디를 입력하세요');
+        }
+        if (!comment) {
+            return alert('댓글을 입력하세요');
+        }
+
+        try {
+            await axios.post('/comments', { userid, comment });
+            getComment(userid);
+        } catch (e) {
+            console.error(e);
+        }
+
+        e.target.userid.value = '';
+        e.target.comment.value = '';
+    },
 );
