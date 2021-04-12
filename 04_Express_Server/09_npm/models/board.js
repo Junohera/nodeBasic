@@ -3,9 +3,10 @@ module.exports = class Board extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             num: {
-                type: Sequelize.BIGINT,
+                type: Sequelize.INTEGER,
                 primaryKey: true,
                 allowNull: false,
+                autoIncrement: true,
             },
             subject: {
                 type: Sequelize.STRING(100),
