@@ -41,7 +41,7 @@ async function getComment(id) {
             remove.textContent = '삭제';
             remove.addEventListener('click', async () => {
                 try {
-                    await asiox.delete(`/comments/${comment.id}`);
+                    await axios.delete(`/comments/${comment.id}`);
                     getComment(id);
                 } catch (err) {
                     console.error('err =>', err);
