@@ -33,11 +33,7 @@ module.exports.verifyToken = (req, res, next) => {
 module.exports.hasVerifyToken = req => {
     console.log("hasVerifyToken");
     try {
-        if (jwt.verify(req.cookies.member, YOUR_SECRET_KEY)) {
-            return true;
-        } else {
-            return false;
-        }
+        return jwt.verify(req.cookies.member, YOUR_SECRET_KEY);
     } catch(e) {
         return false;
     }
