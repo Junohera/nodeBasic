@@ -10,7 +10,7 @@ router.get('/', async (req, res) =>{
         const users = await User.findAll();
         
         res.render('sequelize', {
-            users
+            users,
         });
     } catch (e) {
         console.error(e);
