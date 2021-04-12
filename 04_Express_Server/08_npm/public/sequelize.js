@@ -1,3 +1,51 @@
+// 댓글 로딩
+async function getComment(id) {
+    
+}
+
+// 모든 사용자 조회 후 화면에 표시
+// await 함수 실행이 있으므로 async로 만듭니다.
+async function getUser() {
+    try {
+        // users의 get방식으로 모든 사용자 정보를 조회하여 res에 저장
+        const res = await axios.get('/users');
+        
+        // 이름을 users로 바꿔쓰기 위해 변수만들고 대입합니다.
+        const users = res.data;
+
+        const tbody = document.querySelector('#user-list tbody');
+        tbody.innerHTML = '';
+        
+        // users에 담긴 user 데이터 갯수만큼 데이터를 추가합니다.
+        // users 변수에 담긴 한사람의 데이터가 user 변수에 인원수만큼 담기면서
+        // function이 실행됩니다.
+        users.map(function(user) {
+            // tr 태그 추가
+            const row = document.createElement('tr');
+            // 현재행을 클릭하면 현재 사용자의 댓글들을 로딩하고 하단에 표시하는 이벤트리스너 설정
+            row.addEventListener('click', () => {
+                getComment(user.id); // 현재아이디로 댓글 조회하는 함수추가 예정
+            });
+            // 현재 행에 대한 사용자 정보를 td에 나눠 표시
+            let td = document.createElement('td');
+            td.textContent = user.id;
+            row.appendChild(td);
+            td = document.createElement('td');
+            td.textContent = user.name;
+            row.appendChild(td);
+            td = document.createElement('td');
+            td.textContent = user.age;
+            row.appendChild(td);
+            td = document.createElement('td');
+            td.textContent = user.married ? '기혼' : '미혼';
+            row.appendChild(td);
+            tbody.appendChild(row);
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};
+
 // id가 user-form 인 폼의 submit이 실행될 때,
 document.getElementById('user-form').addEventListener(
     'submit',
