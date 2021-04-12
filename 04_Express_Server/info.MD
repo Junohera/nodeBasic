@@ -85,3 +85,50 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 ```
+
+## sequelize (ORM)
+
+### package.json
+```json
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "nunjucks": "^3.2.3",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
+```
+
+### dbinfo
+```json
+{
+  "development": {
+    "username": "root",
+    "password": "adminuser",
+    "database": "nodejs",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "port": 3307
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+
+```
