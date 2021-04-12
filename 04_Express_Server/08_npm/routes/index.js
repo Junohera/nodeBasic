@@ -5,9 +5,13 @@ const Comment = require('../models/comment');
 
 const router = express.Router();
 
-router.get('/', (req, res) =>{
+router.get('/', async (req, res) =>{
     try {
-        res.render('sequelize', {});
+        const users = await User.findAll();
+        
+        res.render('sequelize', {
+            users
+        });
     } catch (e) {
         console.error(e);
         next(e);
