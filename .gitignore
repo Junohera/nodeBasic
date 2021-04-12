@@ -196,3 +196,6 @@ $RECYCLE.BIN/
 02_builtIn/writeme.txt
 vscode-profile-2021-04-08-13-40-17.cpuprofile
 **/uploads/
+
+# dbinfo
+dbinfo.json
