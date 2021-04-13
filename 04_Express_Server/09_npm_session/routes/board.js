@@ -3,8 +3,13 @@ const Member = require('../models/member');
 const Board = require('../models/board');
 const router = express.Router();
 
-router.get('/', async (req, res) =>{
-
+router.get('/', async (req, res, next) =>{
+    try {
+        res.json(await Board.findAll());
+    } catch (e) {
+        console.error('e =>', e);
+        next(e);
+    }
 });
 
 router.get('/board_insert', (req, res) => {
@@ -29,5 +34,24 @@ router.post('/addboard', async (req, res, next) => {
         next(e);
     }
 });
+
+router.get('/:id', async (req, res, next) => {
+
+    console.log('req.params.id =>', JSON.stringify(req.params.id, undefined, 2));
+    try {
+        const board = await Board.findOne({
+            where: {
+                id: req.params.id,
+            },
+        });
+
+        res.render('detail', { board });
+    } catch (e) {
+        console.error('e =>', e);
+        next(e);
+    }
+    
+    res.send('detail' + id);
+})
 
 module.exports = router;

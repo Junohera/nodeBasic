@@ -19,17 +19,21 @@
         <button type="button" onclick="location.href='/logout'">logout</button>
     </div>
 
-    <ul style="overflow-y: scroll; width: 300px;height: 100vh;">
-        <li>
-            {% for board in boards %}
-                <div style="color:white;">
-                    <h2>subject: {{board.subject}}</h2>
-                    <p>text: <pre>{{board.text}}</pre></p>
-                    <p>created_at: {{board.created_at}}</p>
-                    <p>writer: {{board.writer}}</p>
-                </div>   
-            {% endfor %}
-        </li>
-    </ul>
+    <table style="color:white;border: 1px solid white;">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>본문</th>
+                <th>작성자</th>
+                <th>등록일</th>
+            </tr>
+        </thead>
+        <tbody id="board-list">
+
+        </tbody>
+    </table>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/main.js"></script>
 </body>
 </html>

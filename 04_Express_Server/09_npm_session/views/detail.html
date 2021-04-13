@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>09_npm</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/default.css">
+</head>
+<body>
+
+    <div class="login" style="color:white;">
+        <h1>board detail</h1>
+        <form id="board-form">
+            id: <input type="text" name="id" value="{{board.id}}" readonly="true">
+            subject: <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" />
+            writer: <input type="text" name="writer" value="{{board.writer}}" readonly="true">
+            text: <pre>{{board.text}}</pre>
+            created: {{board.created_at}}
+            <button id="modify" class="btn btn-primary btn-block btn-large">modify</button>
+            <button type="button" onclick="history.back();">back</button>
+        </form>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>
