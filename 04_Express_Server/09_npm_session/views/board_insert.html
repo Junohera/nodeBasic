@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>09_npm</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/default.css">
+</head>
+<body>
+    <div class="login" style="color:white;">
+        <h1>board post</h1>
+        <form id="board-form">
+            <h2>{{luser.userid}}</h2>
+            subject: <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" />
+            text: <textarea name="text" id="text" cols="30" rows="10"></textarea>
+            <input type="hidden" name="writer" value="{{luser.userid}}">
+            <button id="login" class="btn btn-primary btn-block btn-large">post</button>
+        </form>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/addboard.js"></script>
+</body>
+</html>

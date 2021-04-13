@@ -1,34 +1,28 @@
 const express = require('express');
 const Member = require('../models/member');
 const Board = require('../models/board');
-
 const router = express.Router();
 
-router.get('/', async (req, res) =>{
-    res.render('index');
-});
+const { sessionCheck } = require('../auth/sessionCheck');
 
-router.get('/signup', (req, res) => {
-    res.render('signup');
-});
-
-router.post('/signup', async (req, res, next) => {
+router.get('/main', sessionCheck, async (req, res, next) => {
+    const luser = req.session.loginUser;
+    const boards = await Board.findAll();
     try {
-        const member = await Member.create({
-            userid: req.body.userid,
-            pwd: req.body.pwd,
-            name: req.body.name,
-            phone: req.body.phone,
-            email: req.body.email,
-        });
-        console.log(member);
-        res.status(201).json(member);
+        res.render('main', { luser, boards });
+    } catch(err) {
+        console.error('err =>', err);
+        next(err);
+    }
+});
+
+router.get('/', async (req, res, next) =>{
+    try {
+        res.render('login');     
     } catch (e) {
         console.error('e =>', e);
         next(e);
     }
 });
-
-router.post('/signin', createToken);
 
 module.exports = router;
