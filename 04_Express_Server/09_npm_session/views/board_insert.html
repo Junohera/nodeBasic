@@ -9,11 +9,11 @@
     <div class="login" style="color:white;">
         <h1>board post</h1>
         <form id="board-form">
-            <h2>{{luser.userid}}</h2>
             subject: <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" />
-            text: <textarea name="text" id="text" cols="30" rows="10"></textarea>
-            <input type="hidden" name="writer" value="{{luser.userid}}">
+            writer: <input type="text" name="writer" value="{{luser.userid}}" readonly="true">
+            text: <textarea style="background: rgba(0,0,0,0.3);color:white;" name="text" id="text" cols="40" rows="10"></textarea>
             <button id="login" class="btn btn-primary btn-block btn-large">post</button>
+            <button type="button" onclick="history.back();">back</button>
         </form>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -15,15 +15,16 @@
         <p>name : {{luser.name}}</p>
         <p>phone : {{luser.phone}}</p>
         <p>email : {{luser.email}}</p>
+        <button type="button" onclick="location.href='/board/board_insert'">게시글 등록</ㅠ>
+        <button type="button" onclick="location.href='/logout'">logout</button>
     </div>
-    <a href="/board/board_insert">게시글 등록</a>
 
-    <ul>
+    <ul style="overflow-y: scroll; width: 300px;height: 100vh;">
         <li>
             {% for board in boards %}
                 <div style="color:white;">
                     <h2>subject: {{board.subject}}</h2>
-                    <p>text: {{board.text}}</p>
+                    <p>text: <pre>{{board.text}}</pre></p>
                     <p>created_at: {{board.created_at}}</p>
                     <p>writer: {{board.writer}}</p>
                 </div>   

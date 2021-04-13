@@ -25,4 +25,9 @@ router.get('/', async (req, res, next) =>{
     }
 });
 
+router.get('/logout', (req, res, next) => {
+    req.session.destroy();
+    res.render('login', {msg: 'logout success'});
+});
+
 module.exports = router;
