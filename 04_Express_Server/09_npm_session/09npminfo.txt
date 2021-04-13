@@ -1,0 +1,28 @@
+1. 새로운 프로젝트 생성.
+2. sequelize model을 Member, Board를 생성
+3. Member (
+    테이블명 : members
+    필드명 : [
+        userid,
+        pwd,
+        name,
+        phone,
+        email
+    ]
+)
+4. Board (
+    테이블명 : boards,
+    필드명 : [
+        num,
+        writer,
+        subject,
+        content
+    ]
+)
+5. boards의 writer 필드는 members의 userid를 참조합니다.
+6. 프로젝트시작시 모듈에 의해 Mysql테이블이 생성되게 제작.
+7. localhost:3005/ 의 화면은 로그인 화면이고, 로그인 화면에 있는 회원가입버튼을 클릭하여 
+회원가입 화면으로 이동.
+8. 회원가입화면에서 필요한 내용을 입력한 후, 회원 가입 버튼을 클릭하면, db에 저장되고, 로그인화면으로 이동.
+9. client측 script는 static 폴더를 활용
+10. router는 [member, board]로 분리

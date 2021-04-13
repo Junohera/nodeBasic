@@ -1,0 +1,47 @@
+
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>09_npm</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/default.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="login">
+        <h1>Login</h1>
+        <form action="signin" method="POST">
+            <input id="name" type="text" name="userid" placeholder="Username" required="required" autocomplete="off" />
+            <input id="pwd" type="password" name="pwd" placeholder="Password" required="required" autocomplete="off" />
+            <button id="login" class="btn btn-primary btn-block btn-large">sign in</button>
+            <button id="signup" class="btn btn-block btn-large">sign up</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementsByTagName('form')[0].addEventListener('submit', async e => {
+            e.preventDefault();
+            const loginInfo = {
+                userid : e.target.userid.value,
+                pwd : e.target.pwd.value
+            };
+            try {
+                const result = await axios.post('/signin', loginInfo);    
+                console.log('result =>', JSON.stringify(result, undefined, 2));
+
+                location.href='/board';
+            } catch (e) {
+                return alert(e);
+                console.error('e =>', e);
+            }
+            
+            
+        });
+        document.getElementById('signup').addEventListener('click', e => {
+            e.preventDefault();
+            location.href='/signup';
+        });
+    </script>
+</body>
+</html>

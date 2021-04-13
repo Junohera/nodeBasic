@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>09_npm</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/default.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="login">
+        <h1>Board</h1>
+        <form action="board" method="POST">
+            <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off">
+            <input id="content" type="text" name="content" placeholder="content" required="required" autocomplete="off">
+            <button id="post" class="btn-primary btn-block btn-large">post</button>
+        </form>
+    </div>
+</body>
+</html>
