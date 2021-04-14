@@ -78,6 +78,7 @@ npm i express-session
 npm i cookie-parser
 npm i morgan
 npm i multer
+npm i nunjucks-date-filter
 npm i -D nodemon
 ```
 ```js

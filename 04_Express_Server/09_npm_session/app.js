@@ -4,6 +4,7 @@ const path = require('path');
 const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 const session = require('express-session');
+const dateFilter = require('nunjucks-date-filter');
 
 // ! require routers
 const indexRouter = require('./routes');
@@ -17,7 +18,12 @@ const { sessionCheck } = require('./auth/sessionCheck');
 const app = express();
 app.set('port', process.env.PORT || 3005);
 app.set('view engine', 'html');
-nunjucks.configure('views', {   express: app,   watch: true,   });
+
+// ! nunjucks
+nunjucks
+    .configure('views', {   express: app,   watch: true,   })
+    .addFilter('date', dateFilter);
+
 
 // ! config
 app.use(express.static(path.join(__dirname, 'public')));
