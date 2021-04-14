@@ -5,8 +5,6 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) =>{
     try {
-        console.log('req.query =>', JSON.stringify(req.query, undefined, 2));
-        
         if (req.query.edit) {
             const member = await Member.findOne({
                 where: {
@@ -43,7 +41,6 @@ router.post('/update', async (req, res, next) => {
                 userid: req.session.loginUser.userid,
             }
         });
-        console.log('member =>', JSON.stringify(member, undefined, 2));
         req.session.loginUser = member;
         res.redirect('/main');
     } catch (e) {
@@ -72,7 +69,6 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/addmember', async (req, res, next) => {
     try {
-        console.log('req.body =>', JSON.stringify(req.body, undefined, 2));
         const member = await Member.create({
             userid: req.body.userid,
             pwd: req.body.pwd,
@@ -80,7 +76,6 @@ router.post('/addmember', async (req, res, next) => {
             phone: req.body.phone,
             email: req.body.email,
         });
-        console.log(member);
         res.json(member);
     } catch (e) {
         console.log(e);

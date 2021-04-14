@@ -1,7 +1,6 @@
 async function getBoard_list() {
     try {
         const res = await axios.get('/board');
-        console.log(res.data);
         const tbody = document.querySelector('#board-list, tbody')
 
         const fields = [

@@ -17,7 +17,7 @@ document.getElementById('join-form').addEventListener('submit', async e => {
     if (!email) return alert('email');
 
     try {
-        const res = await axios.post('/member/addmember', {
+        await axios.post('/member/addmember', {
             userid,
             pwd,
             pwd2,

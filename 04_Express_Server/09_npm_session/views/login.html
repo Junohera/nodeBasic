@@ -5,19 +5,16 @@
 <head>
     <title>09_npm</title>
     <meta charset="utf-8">
-    
 </head>
 <body>
-    <div class="login">
-        <h1>Login</h1>
-        <form id="login-form" action="/member/login" method="POST">
-            <input id="userid" type="text" name="userid" placeholder="Username" required="required" autocomplete="off" />
-            <input id="pwd" type="password" name="pwd" placeholder="Password" required="required" autocomplete="off" />
-            <button id="login" type="submit" class="btn btn-primary btn-block btn-large">sign in</button>
-            <button id="member" type="button" onclick="location.href='/member'" class="btn btn-block btn-large">sign up</button>
-        </form>
-        <h2 id="msg" style="">{{msg}}</h2>
-    </div>
+    <h1>Login</h1>
+    <form id="login-form" action="/member/login" method="POST">
+        <input id="userid" type="text" name="userid" placeholder="Username" required="required" autocomplete="off" /><br>
+        <input id="pwd" type="password" name="pwd" placeholder="Password" required="required" autocomplete="off" /><br>
+        <button id="login" type="submit">sign in</button>
+        <button id="member" type="button" onclick="location.href='/member'">sign up</button><br>
+    </form>
+    <h2 id="msg">{{msg}}</h2>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/login.js"></script>
 </body>

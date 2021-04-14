@@ -13,7 +13,6 @@ document.getElementById('board-form').addEventListener('submit', async e => {
             subject,
             text,
         });
-        console.log('res =>', JSON.stringify(res, undefined, 2));
         location.href='/main';
     } catch (e) {
         console.log(e);

@@ -27,7 +27,6 @@ router.post('/addboard', async (req, res, next) => {
             subject: req.body.subject,
             text: req.body.text,
         });
-        console.log(board);
         res.json(board);
     } catch (e) {
         console.error('e =>', e);
@@ -53,7 +52,6 @@ router.get('/:id', async (req, res, next) => {
             res.render('board_detail', { board, allowModify });
         }
         else {
-            console.log('board =>', JSON.stringify(board, undefined, 2));
             Board.update({
                 readCount: ++board.readCount,
             },
@@ -74,8 +72,6 @@ router.get('/:id', async (req, res, next) => {
 router.post('/update', async (req, res, next) => {
     try {
         const allowModify = req.session.loginUser.userid === req.body.writer;
-
-        console.log('req.body =>', JSON.stringify(req.body, undefined, 2));
 
         if (allowModify) {
             await Board.update({
