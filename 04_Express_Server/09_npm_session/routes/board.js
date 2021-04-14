@@ -36,22 +36,50 @@ router.post('/addboard', async (req, res, next) => {
 });
 
 router.get('/:id', async (req, res, next) => {
-
-    console.log('req.params.id =>', JSON.stringify(req.params.id, undefined, 2));
     try {
         const board = await Board.findOne({
             where: {
                 id: req.params.id,
             },
         });
-
-        res.render('detail', { board });
+        const allowModify = req.session.loginUser.userid === board.writer;
+        if (req.query.edit) {
+            if (!allowModify) {
+                throw new Error('diff loginUser, writer');
+            }
+            res.render('board_update', { board, allowModify });
+        } else {
+            res.render('board_detail', { board, allowModify });
+        }
     } catch (e) {
         console.error('e =>', e);
         next(e);
     }
-    
-    res.send('detail' + id);
+});
+
+router.post('/update', async (req, res, next) => {
+    try {
+        const allowModify = req.session.loginUser.userid === board.writer;
+
+        console.log('req.body =>', JSON.stringify(req.body, undefined, 2));
+
+        if (allowModify) {
+            await Board.update({
+                subject: req.body.subject,
+                text: req.body.text,
+            }, {
+                where: {
+                    id: req.body.id,
+                }
+            });
+            res.redirect('/board/' + req.body.id);
+        } else {
+            throw new Error('403');
+        }
+    } catch (e) {
+        console.error('e =>', e);
+        next(e);
+    }
 })
 
 module.exports = router;

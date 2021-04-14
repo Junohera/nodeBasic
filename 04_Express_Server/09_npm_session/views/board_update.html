@@ -7,16 +7,16 @@
 </head>
 <body>
 
-    <div class="login" style="color:white;top:10%;">
-        <h1>board detail</h1>
-        <form id="board-form">
+    <div class="login" style="color:white;top:20%;">
+        <h1>board updateForm</h1>
+        <form action="/board/update" method="POST">
             id: <input type="text" name="id" value="{{board.id}}" readonly="true">
             subject: <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" />
             writer: <input type="text" name="writer" value="{{board.writer}}" readonly="true">
-            text: <pre>{{board.text}}</pre>
+            text: <textarea style="background: black;color:white;" name="text" cols="30" rows="10" >{{board.text}}</textarea>
             created: {{board.created_at | date('YYYY/MM/DD')}}
-            <button id="modify" class="btn btn-primary btn-block btn-large">modify</button>
-            <button type="button" onclick="history.back();">back</button>
+            <button id="modify" type="submit" class="btn btn-primary btn-block btn-large">post</button>
+            <a type="button" class="btn btn-primary btn-block btn-large" onclick="history.back();">back</a>
         </form>
     </div>
 
