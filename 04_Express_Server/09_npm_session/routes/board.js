@@ -48,8 +48,22 @@ router.get('/:id', async (req, res, next) => {
                 throw new Error('diff loginUser, writer');
             }
             res.render('board_update', { board, allowModify });
-        } else {
+        }
+        else if (req.query.edited) {
             res.render('board_detail', { board, allowModify });
+        }
+        else {
+            console.log('board =>', JSON.stringify(board, undefined, 2));
+            Board.update({
+                readCount: ++board.readCount,
+            },
+            {
+                where: {
+                    id: req.params.id,
+                }
+            }).then(() => {
+                res.render('board_detail', { board, allowModify });
+            });
         }
     } catch (e) {
         console.error('e =>', e);
@@ -59,7 +73,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/update', async (req, res, next) => {
     try {
-        const allowModify = req.session.loginUser.userid === board.writer;
+        const allowModify = req.session.loginUser.userid === req.body.writer;
 
         console.log('req.body =>', JSON.stringify(req.body, undefined, 2));
 
@@ -72,7 +86,7 @@ router.post('/update', async (req, res, next) => {
                     id: req.body.id,
                 }
             });
-            res.redirect('/board/' + req.body.id);
+            res.redirect(`/board/${req.body.id}?edited=1`);
         } else {
             throw new Error('403');
         }

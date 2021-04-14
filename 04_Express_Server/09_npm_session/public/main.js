@@ -6,6 +6,7 @@ async function getBoard_list() {
 
         const fields = [
             "id",
+            "readCount",
             "subject",
             "text",
             "writer",
@@ -13,17 +14,26 @@ async function getBoard_list() {
         ];
 
         let td = null;
+        let a = null;
         res.data.forEach(v => {
             const row = document.createElement('tr');
             
             fields.forEach(field => {
                 td = document.createElement('td');
-                td.textContent = v[field];
+
                 if (field === "subject") {
-                    td.addEventListener('click', e => {
-                        e.preventDefault();
-                        location.href=`/board/${v.id}`;
-                    })
+                    a = document.createElement('a');
+                    a.setAttribute('href', `/board/${v.id}`);
+                    a.textContent = v[field];
+                    td.appendChild(a);
+                } else {
+                    td.textContent = v[field];
+                }
+                
+                if (field === "created_at") {
+                    td.textContent = (() => {
+                        return v[field].split('T')[0];
+                    })();
                 }
                 row.appendChild(td);
             });

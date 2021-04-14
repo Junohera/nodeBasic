@@ -3,22 +3,18 @@
 <head>
     <title>09_npm</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/default.css">
 </head>
 <body>
-
-    <div class="login" style="color:white;top:20%;">
-        <h1>board updateForm</h1>
-        <form action="/board/update" method="POST">
-            id: <input type="text" name="id" value="{{board.id}}" readonly="true">
-            subject: <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" />
-            writer: <input type="text" name="writer" value="{{board.writer}}" readonly="true">
-            text: <textarea style="background: black;color:white;" name="text" cols="30" rows="10" >{{board.text}}</textarea>
-            created: {{board.created_at | date('YYYY/MM/DD')}}
-            <button id="modify" type="submit" class="btn btn-primary btn-block btn-large">post</button>
-            <a type="button" class="btn btn-primary btn-block btn-large" onclick="history.back();">back</a>
-        </form>
-    </div>
+    <h1>board updateForm</h1>
+    <form action="/board/update" method="POST">
+        id: <br> <input type="text" name="id" value="{{board.id}}" readonly><br>
+        subject: <br> <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" /><br>
+        writer: <br> <input type="text" name="writer" value="{{board.writer}}" readonly="true"><br>
+        text: <br> <textarea name="text" cols="30" rows="10" >{{board.text}}</textarea><br>
+        created: <br> {{board.created_at | date('YYYY/MM/DD')}}<br>
+        <button id="modify" type="submit">post</button><br>
+        <button onclick="history.back();">main</button>
+    </form>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>

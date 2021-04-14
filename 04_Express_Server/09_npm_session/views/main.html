@@ -5,10 +5,9 @@
 <head>
     <title>09_npm</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/default.css">
+    
 </head>
 <body>
-    <div class="login" style="color:white;">
         <h2>welcome {{luser.name}} !!!</h2>
         <p>userid : {{luser.userid}}</p>
         <p>pwd : {{luser.pwd}}</p>
@@ -17,13 +16,13 @@
         <p>email : {{luser.email}}</p>
         <button type="button" onclick="location.href='/board/board_insert'">게시글 등록</button>
         <button type="button" onclick="location.href='/member?edit=true'">회원정보변경</button>
-        <button type="button" onclick="location.href='/logout'">logout</button>
-    </div>
+        <button type="button" onclick="location.href='/logout'">로그아웃</button>
 
-    <table style="color:white;border: 1px solid white;">
+    <table border="1">
         <thead>
             <tr>
                 <th>번호</th>
+                <th>조회수</th>
                 <th>제목</th>
                 <th>본문</th>
                 <th>작성자</th>
@@ -31,9 +30,8 @@
             </tr>
         </thead>
         <tbody id="board-list">
-
         </tbody>
-    </table>
+    </table><br>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/main.js"></script>
 </body>

@@ -3,25 +3,20 @@
 <head>
     <title>09_npm</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/default.css">
 </head>
 <body>
-
-    <div class="login" style="color:white;top:20%;">
-        <h1>board detail</h1>
-        <form id="board-form">
-            id: <input type="text" name="id" value="{{board.id}}" readonly="true">
-            subject: <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" />
-            writer: <input type="text" name="writer" value="{{board.writer}}" readonly="true">
-            text: <pre>{{board.text}}</pre>
-            created: {{board.created_at | date('YYYY/MM/DD')}}
-            {% if allowModify %}
-                <a id="modify" href="?edit=1" class="btn btn-primary btn-block btn-large">modify</a>    
-            {% endif %}
-            <a type="button" class="btn btn-primary btn-block btn-large" onclick="history.back();">back</a>
-        </form>
-    </div>
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <h1>board detail</h1>
+    <form id="board-form">
+        readCount: ({{board.readCount}}) <br><br>
+        id: <br><input type="text" name="id" value="{{board.id}}" readonly="true"><br>
+        subject:<br> <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" /><br>
+        writer:<br> <input type="text" name="writer" value="{{board.writer}}" readonly="true"><br>
+        text:<br> <pre style="border: 1px solid black;">{{board.text}}</pre>
+        created:<br> {{board.created_at | date('YYYY/MM/DD')}}<br>
+        {% if allowModify %}
+            <button id="modify"><a href="?edit=1">modify</a></button><br>
+        {% endif %}
+        <button><a href="/main">main</a></button>
+    </form>
 </body>
 </html>

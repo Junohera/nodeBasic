@@ -3,16 +3,19 @@
 <head>
     <title>09_npm</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/default.css">
+    
 </head>
 <body>
-    <div class="login" style="color:white;">
+    <div class="login" style="">
         <h1>board post</h1>
         <form id="board-form">
-            subject: <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" />
-            writer: <input type="text" name="writer" value="{{luser.userid}}" readonly="true">
-            text: <textarea style="background: rgba(0,0,0,0.3);color:white;" name="text" id="text" cols="40" rows="10"></textarea>
-            <button id="login" class="btn btn-primary btn-block btn-large">post</button>
+            subject: <br>
+            <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" /><br>
+            writer: <br>
+            <input type="text" name="writer" value="{{luser.userid}}" readonly="true"><br>
+            text: <br>
+            <textarea name="text" id="text" cols="40" rows="10"></textarea><br>
+            <button id="login">post</button>
             <button type="button" onclick="history.back();">back</button>
         </form>
     </div>

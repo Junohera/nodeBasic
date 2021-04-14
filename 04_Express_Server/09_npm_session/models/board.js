@@ -15,6 +15,10 @@ module.exports = class Board extends Sequelize.Model {
                 allowNull: false,
                 defaultValue: Sequelize.NOW,
             },
+            readCount: {
+                type: Sequelize.INTEGER,
+                defaultValue: 0,
+            }
         }, {
             sequelize,
             timestamps: false,
