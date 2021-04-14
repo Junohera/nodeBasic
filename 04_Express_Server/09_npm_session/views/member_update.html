@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>09_npm</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/default.css">
+</head>
+<body>
+    <div class="login">
+        <h1>member updateForm</h1>
+        <form id="update-form" action="/member/update" method="POST">
+            <input id="userid" type="text" name="userid" placeholder="UserId" required="required" value="{{member.userid}}" readonly autocomplete="off" />
+            <input type="password" name="pwd" placeholder="Password" required="required" autocomplete="off" />
+            <input type="password" name="pwd2" placeholder="Password Check" required="required" autocomplete="off" />
+            <input type="text" name="name" placeholder="Username" required="required" autocomplete="off" value="{{member.name}}" />
+            <input type="text" name="phone" placeholder="Phone : 010XXXXXXXX" autocomplete="off" value="{{member.phone}}"/>
+            <input type="text" name="email" placeholder="Email" autocomplete="off" value="{{member.email}}" />
+            <button id="login" type="submit" class="btn btn-primary btn-block btn-large">post</button>
+        </form>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/updatemember.js"></script>
+</body>
+</html>

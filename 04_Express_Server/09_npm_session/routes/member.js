@@ -3,14 +3,53 @@ const Member = require('../models/member');
 const Board = require('../models/board');
 const router = express.Router();
 
-router.get('/', (req, res, next) =>{
+router.get('/', async (req, res, next) =>{
     try {
-        res.render('member_insert');
+        console.log('req.query =>', JSON.stringify(req.query, undefined, 2));
+        
+        if (req.query.edit) {
+            const member = await Member.findOne({
+                where: {
+                    userid: req.session.loginUser.userid,
+                },
+            });
+            res.render('member_update', {member});
+        } else {
+            res.render('member_insert');
+        }
     } catch (e) {
         console.error('e =>', e);
         next(e);
     }
 });
+
+router.post('/update', async (req, res, next) => {
+    try {
+        const member = {
+            userid: req.body.userid,
+            pwd: req.body.pwd,
+            name: req.body.name,
+            phone: req.body.phone,
+            email: req.body.email,
+        };
+        await Member.update({
+            userid: member.userid,
+            pwd: member.pwd,
+            name: member.name,
+            phone: member.phone,
+            email: member.email,
+        }, {
+            where: {
+                userid: req.session.loginUser.userid,
+            }
+        });
+        console.log('member =>', JSON.stringify(member, undefined, 2));
+        req.session.loginUser = member;
+        res.redirect('/main');
+    } catch (e) {
+        
+    }
+})
 
 router.post('/login', async (req, res, next) => {
     try {
