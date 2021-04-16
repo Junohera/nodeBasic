@@ -1,12 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>09_npm</title>
     <meta charset="utf-8">
-    
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="login">
@@ -14,11 +10,10 @@
         <h2 >
             {{err}}
         </h2>
-        <button id="root" class="btn btn-block btn-large">go login</button>
+        <button id="root">go login</button>
     </div>
-
     <script>
-        document.getElementById('root').addEventListener('click', e => {
+document.getElementById('root').addEventListener('click', e => {
             e.preventDefault();
 
             location.href='/';
