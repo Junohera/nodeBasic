@@ -5,7 +5,7 @@ const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 const session = require('express-session');
 const dateFilter = require('nunjucks-date-filter');
-const fs = require('fs');
+const uploadUtil = require('./config/uploadUtil');
 
 // ! require routers
 const indexRouter = require('./routes');
@@ -42,14 +42,7 @@ app.use(session({
 }));
 
 // ! config physical Path
-(() => {
-    try {
-        fs.readdirSync('public/uploads');
-    } catch (error) {
-        console.error('### CREATE uploads DIRECTORY ###');
-        fs.mkdirSync('public/uploads');
-    }
-})();
+uploadUtil.init();
 
 // ! database
 sequelize.sync({ force: false })

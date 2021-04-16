@@ -4,7 +4,6 @@ const Board = require('../models/board');
 const Reply = require('../models/reply');
 const router = express.Router();
 const uploadUtil = require('../config/uploadUtil');
-const { upload } = require('../config/uploadUtil');
 
 router.get('/', async (req, res, next) =>{
     try {

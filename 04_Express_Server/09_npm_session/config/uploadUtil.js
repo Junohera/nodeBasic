@@ -2,10 +2,18 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const PATH = 'public/uploads/'
+const PATH = 'public/uploads/';
 
 module.exports = {
-    PATH: PATH,
+    PATH,
+    init: () => {
+        try {
+            fs.readdirSync(PATH);
+        } catch (error) {
+            console.error('### CREATE uploads DIRECTORY ###');
+            fs.mkdirSync(PATH);
+        }
+    },
     upload: multer({
         storage: multer.diskStorage({
             destination(req, file, done) {

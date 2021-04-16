@@ -23,7 +23,7 @@ async function getBoard_list() {
             const row = document.createElement('tr');
             td = document.createElement('td');
             td.textContent = '작성된댓글이 없습니다';
-            td.setAttribute('colspan', 6);
+            td.setAttribute('colspan', 8);
             row.appendChild(td);
             tbody.appendChild(row);
         } else {
@@ -34,10 +34,12 @@ async function getBoard_list() {
                     td = document.createElement('td');
     
                     if (field === "realfilename") {
-                        let img = document.createElement('img');
-                        img.setAttribute('src', `/uploads/${v[field]}`);
-                        img.setAttribute('width', '50px');
-                        td.appendChild(img);
+                        if (v[field]) {
+                            let img = document.createElement('img');
+                            img.setAttribute('src', `/uploads/${v[field]}`);
+                            img.setAttribute('width', '50px');
+                            td.appendChild(img);
+                        }
                     } 
                     else if (field === 'delete') {
                         let button = document.createElement('button');
