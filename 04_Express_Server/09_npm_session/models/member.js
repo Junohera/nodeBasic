@@ -47,5 +47,10 @@ module.exports = class Member extends Sequelize.Model {
             sourceKey: 'userid',
             onDelete: 'cascade',
         });
+        db.Member.hasMany(db.Reply, {
+            foreignKey: 'rewriter',
+            sourceKey: 'userid',
+            onDelete: 'cascade',
+        });
     }
 };

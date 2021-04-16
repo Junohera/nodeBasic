@@ -14,19 +14,20 @@ async function getBoard_list() {
 
         let td = null;
         let a = null;
+        let span = null;
         res.data.forEach(v => {
             const row = document.createElement('tr');
             
             fields.forEach(field => {
                 td = document.createElement('td');
 
-                if (field === "subject") {
-                    a = document.createElement('a');
-                    a.setAttribute('href', `/board/${v.id}`);
-                    a.textContent = v[field];
-                    td.appendChild(a);
-                } else {
-                    td.textContent = v[field];
+                td.textContent = v[field];
+
+                if (field === 'subject') {
+                    span = document.createElement('span');
+                    span.setAttribute('style', 'color:red');
+                    span.textContent = `[${v['Replies'].length}]`;
+                    td.appendChild(span);
                 }
                 
                 if (field === "created_at") {
@@ -35,6 +36,24 @@ async function getBoard_list() {
                     })();
                 }
                 row.appendChild(td);
+                row.setAttribute('style', 'cursor: pointer');
+
+                row.addEventListener(
+                    'mouseenter', e => {
+                        e.target.style.backgroundColor = "yellow";
+                    }
+                );
+                row.addEventListener(
+                    'mouseleave', e => {
+                        e.target.style.backgroundColor = "white";
+                    }
+                );
+                row.addEventListener(
+                    'click', e => {
+                        e.preventDefault();
+                        location.href=`/board/${v['id']}`;
+                    }
+                );
             });
             tbody.appendChild(row);
         });

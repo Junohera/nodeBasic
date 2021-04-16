@@ -3,6 +3,7 @@
 <head>
     <title>09_npm</title>
     <meta charset="utf-8">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1>board detail</h1>
@@ -18,5 +19,110 @@
         {% endif %}
         <button><a href="/main">main</a></button>
     </form>
+    <hr>
+    <br>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>작성자</th>
+                <th>본문</th>
+                <th>등록일</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody id="reply-list">
+        </tbody>
+    </table><br>
+    <hr>
+    <form id="reply-form" action="{{board.id}}/reply" method="POST">
+        작성자: <br> <input type="text" name="rewriter" value="{{luser.userid}}" disabled><br>
+        내용: <br> <textarea name="text" id="" cols="30" rows="10" required></textarea><br>
+        <button type="submit">post</button>
+    </form>
+    <script>
+        getReplyList();
+        function getReplyList(replyList) {
+            const tbody = document.getElementById('reply-list');
+            const fields = [
+                "id",
+                "rewriter",
+                "text",
+                "created_at",
+                "delete",
+            ];
+
+            let td = null;
+            let a = null;
+
+            if (!replyList) {
+                axios.get(`/board/{{board.id}}/reply`)
+                .then(({ data }) => {
+                    render(data);
+                });
+            } else {
+                render(replyList);
+            }
+
+            function render(replyList) {
+                tbody.innerHTML = '';
+                if (replyList.length === 0) {
+                    const row = document.createElement('tr');
+                    const td = document.createElement('td');
+                    td.textContent = '작성된댓글이 없습니다';
+                    td.setAttribute('colspan', 5);
+                    row.appendChild(td);   
+                    tbody.appendChild(row);
+                } else {
+                    replyList.forEach(v => {
+                        const row = document.createElement('tr');
+
+                        fields.forEach(field => {
+                            td = document.createElement('td');
+
+                            if (field === 'delete') {
+                                button = document.createElement('button');
+                                if ('{{luser.userid}}' === v['rewriter']) {
+                                    button.addEventListener('click', async e => {
+                                        await axios.delete(`/board/{{board.id}}/${v['id']}`)
+                                        .then(res => {
+                                            getReplyList();
+                                        });
+                                    })
+                                } else {
+                                    button.setAttribute('disabled', 'true');
+                                }
+                                button.textContent = '삭제';
+                                td.appendChild(button);
+                            } else {
+                                td.textContent = v[field];
+                            }
+                            
+
+                            if (field === "created_at") {
+                                td.textContent = (() => {
+                                    return v[field].split('T')[0];
+                                })();
+                            }
+                            row.appendChild(td);
+                        });
+                        tbody.appendChild(row);
+                    });
+                }
+            };
+        };
+        
+        document.getElementById('reply-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            
+            const res = await axios.post(`/board/{{board.id}}/reply`, {
+                text: e.target.text.value,
+            });
+
+            e.target.text.value = '';
+
+            getReplyList(res.data);
+        });
+    </script>
 </body>
 </html>
