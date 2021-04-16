@@ -3,6 +3,8 @@ const Member = require('../models/member');
 const Board = require('../models/board');
 const Reply = require('../models/reply');
 const router = express.Router();
+const uploadUtil = require('../config/uploadUtil');
+const { upload } = require('../config/uploadUtil');
 
 router.get('/', async (req, res, next) =>{
     try {
@@ -26,14 +28,21 @@ router.get('/board_insert', (req, res) => {
         res.redirect('/');
     }
 });
-router.post('/addboard', async (req, res, next) => {
+router.post('/addboard', uploadUtil.upload.single('image'), async (req, res, next) => {
     try {
-        const board = await Board.create({
+        const board = {
             writer: req.body.writer,
             subject: req.body.subject,
             text: req.body.text,
-        });
-        res.json(board);
+        };
+
+        if (req.file) {
+            console.log('req.file =>', JSON.stringify(req.file, undefined, 2));
+            board.filename = req.file.originalname;
+            board.realfilename = req.file.filename;
+        }
+        const result = await Board.create(board);
+        res.status(201).json(result);
     } catch (e) {
         console.error('e =>', e);
         next(e);
@@ -77,15 +86,29 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/update', async (req, res, next) => {
+router.post('/update', uploadUtil.upload.single('image'), async (req, res, next) => {
     try {
         const allowModify = req.session.loginUser.userid === req.body.writer;
+        
+        const board = {
+            subject: req.body.subject,
+            text: req.body.text,
+        };
 
+        // 요청 파일이 있을경우
+        if (req.file) {
+            board.filename = req.file.originalname;
+            board.realfilename = req.file.filename;
+
+            // 이전 파일이 있는경우,
+            // 1. logical
+            console.log('req.body.originrealfilename =>', JSON.stringify(req.body.originrealfilename, undefined, 2));
+            if (req.body.originrealfilename) {
+                uploadUtil.remove(req.body.originrealfilename);
+            }
+        }
         if (allowModify) {
-            await Board.update({
-                subject: req.body.subject,
-                text: req.body.text,
-            }, {
+            await Board.update(board, {
                 where: {
                     id: req.body.id,
                 }
@@ -100,12 +123,40 @@ router.post('/update', async (req, res, next) => {
     }
 });
 
+router.delete('/:id', async (req, res, next) => {
+    try {
+        console.log('req.params.id =>', JSON.stringify(req.params.id, undefined, 2));
+        const board = await Board.findOne({
+            where: {
+                id: req.params.id,
+            }
+        });
+
+        console.log('board.realfilename =>', JSON.stringify(board.realfilename, undefined, 2));
+        if (board.realfilename) {
+            uploadUtil.remove(board.realfilename);
+        }
+        await Board.destroy({
+            where: {
+                id: req.params.id,
+            }
+        });
+        res.status(204).json();
+    } catch (e) {
+        console.error('e =>', e);
+        next(e);
+    }
+});
+
 router.get('/:id/reply', async (req, res, next) => {
     try {
         res.json(await Reply.findAll({
             where: {
                 board: req.params.id
-            }
+            },
+            order: [
+                ['id', 'desc']
+            ],
         }));
     } catch (e) {
         console.error('e =>', e);
@@ -140,7 +191,10 @@ router.post('/:id/reply', async (req, res, next) => {
         res.status(201).json(await Reply.findAll({
             where: {
                 board: req.params.id
-            }
+            },
+            order: [
+                ['id', 'desc']
+            ]
         }));
     } catch (e) {
         console.error('e =>', e);

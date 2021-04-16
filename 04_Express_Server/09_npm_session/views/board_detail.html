@@ -9,9 +9,15 @@
     <h1>board detail</h1>
     <form id="board-form">
         readCount: ({{board.readCount}}) <br><br>
-        id: <br><input type="text" name="id" value="{{board.id}}" readonly="true"><br>
-        subject:<br> <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" /><br>
-        writer:<br> <input type="text" name="writer" value="{{board.writer}}" readonly="true"><br>
+        id: <br><input type="text" name="id" value="{{board.id}}" readonly><br>
+        subject:<br> <input id="subject" type="text" name="subject" placeholder="subject" readonly required="required" autocomplete="off" value="{{board.subject}}" /><br>
+        writer:<br> <input type="text" name="writer" value="{{board.writer}}" readonly><br>
+        {% if board.realfilename %}
+            image: <br>
+            <img src="/uploads/{{board.realfilename}}" alt=""><br>
+        {% endif %}
+
+        image: 
         text:<br> <pre style="border: 1px solid black;">{{board.text}}</pre>
         created:<br> {{board.created_at | date('YYYY/MM/DD')}}<br>
         {% if allowModify %}
@@ -81,7 +87,7 @@
                             td = document.createElement('td');
 
                             if (field === 'delete') {
-                                button = document.createElement('button');
+                                let button = document.createElement('button');
                                 if ('{{luser.userid}}' === v['rewriter']) {
                                     button.addEventListener('click', async e => {
                                         await axios.delete(`/board/{{board.id}}/${v['id']}`)

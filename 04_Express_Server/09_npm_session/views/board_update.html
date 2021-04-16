@@ -6,10 +6,17 @@
 </head>
 <body>
     <h1>board updateForm</h1>
-    <form action="/board/update" method="POST">
+    <form action="/board/update" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="originrealfilename" value="{{board.realfilename}}">
         id: <br> <input type="text" name="id" value="{{board.id}}" readonly><br>
         subject: <br> <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" /><br>
         writer: <br> <input type="text" name="writer" value="{{board.writer}}" readonly="true"><br>
+        <input id="imagefile" type="file" name="image" onchange="setPreview(event);"/><br>
+        <div id="preview">
+            {% if board.realfilename %}
+                <img src="/uploads/{{board.realfilename}}" alt="">
+            {% endif %}
+        </div><br>
         text: <br> <textarea name="text" cols="30" rows="10" >{{board.text}}</textarea><br>
         created: <br> {{board.created_at | date('YYYY/MM/DD')}}<br>
         <button id="modify" type="submit">post</button><br>
@@ -17,5 +24,21 @@
     </form>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function setPreview(event) {
+            var reader = new FileReader();
+            const previewBox = document.querySelector("div#preview");
+            previewBox.innerHTML = '';
+            reader.onload = function(event) {
+                var img = document.createElement("img");
+                img.setAttribute("src", event.target.result);
+                previewBox.appendChild(img);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+        document.getElementById('preview').addEventListener('click', e => {
+            document.getElementById('imagefile').click();
+        });
+    </script>
 </body>
 </html>
