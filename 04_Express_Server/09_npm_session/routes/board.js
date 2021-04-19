@@ -106,6 +106,14 @@ router.post('/update', uploadUtil.upload.single('image'), async (req, res, next)
                 uploadUtil.remove(req.body.originrealfilename);
             }
         }
+
+        // 파일을 없앨경우
+        if (req.body.imageDelete === "Y") {
+            uploadUtil.remove(req.body.originrealfilename);
+            board.filename = null;
+            board.realfilename = null;
+        }
+
         if (allowModify) {
             await Board.update(board, {
                 where: {

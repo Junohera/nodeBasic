@@ -11,7 +11,10 @@
         id: <br> <input type="text" name="id" value="{{board.id}}" readonly><br>
         subject: <br> <input id="subject" type="text" name="subject" placeholder="subject" required="required" autocomplete="off" value="{{board.subject}}" /><br>
         writer: <br> <input type="text" name="writer" value="{{board.writer}}" readonly="true"><br>
-        <input id="imagefile" type="file" name="image" onchange="setPreview(event);"/><br>
+        <input id="imagefile" type="file" name="image" onchange="setPreview(event);"/>
+        <input id="imageDelete" type="hidden" name="imageDelete" value="N">
+        <button type="button" onclick="removeFile(event);">X</button>
+        <br>
         <div id="preview">
             {% if board.realfilename %}
                 <img src="/uploads/{{board.realfilename}}" alt="">
@@ -25,6 +28,14 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+        function removeFile(event) {
+            const previewBox = document.querySelector("div#preview");
+            previewBox.innerHTML = '';
+
+            document.getElementById('imagefile').value = null;
+            document.getElementById('imageDelete').value = 'Y';
+        }
+
         function setPreview(event) {
             var reader = new FileReader();
             const previewBox = document.querySelector("div#preview");
@@ -35,6 +46,7 @@
                 previewBox.appendChild(img);
             };
             reader.readAsDataURL(event.target.files[0]);
+            document.getElementById('imageDelete').value = 'N';
         };
         document.getElementById('preview').addEventListener('click', e => {
             document.getElementById('imagefile').click();
